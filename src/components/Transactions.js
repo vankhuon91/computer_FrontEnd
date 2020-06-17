@@ -2,18 +2,19 @@ import React, { useState, useEffect } from 'react';
 import MaterialTable from 'material-table';
 import axios from 'axios';
 
-export default function Users() {
+export default function Transactions() {
   const [state, setState] = useState({
     columns: [
-      { title: 'Name', field: 'name' },
-      { title: 'Email', field: 'email' },
-      { title: 'Phone Number', field: 'phone', type: 'numeric' },
+      { title: 'user', field: 'user' },
+      { title: 'book', field: 'book' },
+      { title: 'timeStart', field: 'timeStart' },
+      { title: 'timeEnd', field: 'timeEnd' },
 
     ],
     data: [],
   });
   useEffect(() => {
-    axios.get('https://27--rest-api.glitch.me/api/user/all')
+    axios.get('https://27--rest-api.glitch.me/api/transaction/all')
       .then((res) => {
         const data = res.data;
         setState((prevState) => { return { ...prevState, data } })
@@ -22,7 +23,7 @@ export default function Users() {
   }, [])
 
   let deleteUser = (oldData) => {
-    return axios.delete(`https://27--rest-api.glitch.me/api/user/${oldData._id}`)
+    return axios.delete(`https://27--rest-api.glitch.me/api/transaction/${oldData._id}`)
       .then(res => {
         if (oldData) {
           setState((prevState) => {
@@ -39,7 +40,7 @@ export default function Users() {
   }
 
   let updateUser = (newData, oldData) => {
-    return axios.put(`https://27--rest-api.glitch.me/api/user/${oldData._id}`,newData)
+    return axios.put(`https://27--rest-api.glitch.me/api/transaction/${oldData._id}`,newData)
       .then(res => {
         if (oldData) {
           setState((prevState) => {
@@ -56,7 +57,7 @@ export default function Users() {
   }
 
   let addUser = (newData) => {
-    return axios.post(`https://27--rest-api.glitch.me/api/register`,newData)
+    return axios.post(`https://27--rest-api.glitch.me/api/transaction`,newData)
       .then(res => {
         setState((prevState) => {
           const data = [...prevState.data];
