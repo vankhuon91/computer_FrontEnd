@@ -71,7 +71,7 @@ export default function Users() {
   }
   return (
     <MaterialTable
-      title="Editable Example"
+      title="Users"
       columns={state.columns}
       data={state.data}
       editable={{

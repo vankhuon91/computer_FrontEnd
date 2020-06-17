@@ -3,22 +3,50 @@ import MaterialTable from 'material-table';
 import axios from 'axios';
 
 export default function Transactions() {
-  const [state, setState] = useState({
-    columns: [
-      { title: 'user', field: 'user' },
-      { title: 'book', field: 'book' },
-      { title: 'timeStart', field: 'timeStart' },
-      { title: 'timeEnd', field: 'timeEnd' },
+  const [state, setState] = useState({});
 
-    ],
-    data: [],
-  });
+  async function initState(){
+    let listUser={};
+    await axios.get('https://27--rest-api.glitch.me/api/user')
+    .then((res) => {
+      const data = res.data;
+      for (let i of data) {
+        listUser[i._id]=i.name
+      }
+    });
+
+    let listBook={};
+    await axios.get('https://27--rest-api.glitch.me/api/book/all')
+    .then((res) => {
+      const data = res.data;
+      for (let i of data) {
+        listBook[i._id]=i.title
+      }
+    });
+
+
+    let data=[];
+    await axios.get('https://27--rest-api.glitch.me/api/transaction/all')
+    .then((res) => {
+      data = res.data;
+    });
+    let newState={
+      columns: [
+        { title: 'user', field: 'user',lookup:listUser},
+        { title: 'book', field: 'book',lookup:listBook},
+        { title: 'timeStart', field: 'timeStart' },
+        { title: 'timeEnd', field: 'timeEnd' },
+  
+      ],
+      data:data,
+    };
+
+    setState((prevState) => { return newState });
+    
+
+  }
   useEffect(() => {
-    axios.get('https://27--rest-api.glitch.me/api/transaction/all')
-      .then((res) => {
-        const data = res.data;
-        setState((prevState) => { return { ...prevState, data } })
-      })
+    initState();
 
   }, [])
 
@@ -61,7 +89,7 @@ export default function Transactions() {
       .then(res => {
         setState((prevState) => {
           const data = [...prevState.data];
-          data.push(newData);
+          data.push({...newData,timeStart: new Date().toISOString()});
           return { ...prevState, data };
         });
       })
@@ -72,7 +100,7 @@ export default function Transactions() {
   }
   return (
     <MaterialTable
-      title="Editable Example"
+      title="Transactions"
       columns={state.columns}
       data={state.data}
       editable={{
