@@ -1,52 +1,42 @@
 import React, { useState, useEffect } from 'react';
 import MaterialTable from 'material-table';
 import axios from 'axios';
+import {serverAPI} from './Const'
 
-export default function Transactions() {
-  const [state, setState] = useState({});
-
-  async function initState(){
-    let listUser={};
-    await axios.get('https://27--rest-api.glitch.me/api/user')
-    .then((res) => {
-      const data = res.data;
-      for (let i of data) {
-        listUser[i._id]=i.name
-      }
-    });
-
-    let listBook={};
-    await axios.get('https://27--rest-api.glitch.me/api/book/all')
-    .then((res) => {
-      const data = res.data;
-      for (let i of data) {
-        listBook[i._id]=i.title
-      }
-    });
-
-
-    let data=[];
-    await axios.get('https://27--rest-api.glitch.me/api/transaction/all')
-    .then((res) => {
-      data = res.data;
-    });
-    let newState={
-      columns: [
-        { title: 'user', field: 'user',lookup:listUser},
-        { title: 'book', field: 'book',lookup:listBook},
-        { title: 'timeStart', field: 'timeStart' },
-        { title: 'timeEnd', field: 'timeEnd' },
-  
-      ],
-      data:data,
-    };
-
-    setState((prevState) => { return newState });
-    
-
-  }
+export default function Actions() {
+  const [state, setState] = useState({
+    columns: [
+      { title: 'ComputerName', field: 'comName' },
+      { title: 'Mac', field: 'Mac' },
+      { title: 'Time Computer', field: 'timeCom' },
+      { title: 'Name Command', field: 'nameCommand' },
+      { title: 'Time Create', field: 'timeCreate' },
+      { title: 'Time Receive', field: 'timeReceive' },
+    ],
+    data: [],
+  });
   useEffect(() => {
-    initState();
+    axios.get(serverAPI+'/actions')
+      .then((res) => {
+        let data = res.data;
+        data=data.map((item)=>{
+          if (item.idComputer==null) {item.idComputer={}}
+          if (item.idCommand==null) {item.idCommand={}}
+          let newitem={
+              _id:item._id,
+              Mac:item.idComputer.Mac,
+              ComName:item.idComputer.ComName,
+              timeCom:item.idComputer.lastSeen,
+              nameCommand:item.idCommand.nameCommand,
+              timeReceive:item.timeReceive ,
+              timeCreate:item.timeCreate
+          }
+          return newitem
+      })
+    
+        setState((prevState) => { return { ...prevState, data } })
+        
+      })
 
   }, [])
 
@@ -100,7 +90,7 @@ export default function Transactions() {
   }
   return (
     <MaterialTable
-      title="Transactions"
+      title="Actions"
       columns={state.columns}
       data={state.data}
       editable={{

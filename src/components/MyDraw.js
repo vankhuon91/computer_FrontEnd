@@ -151,9 +151,9 @@ export default function MiniDrawer(props) {
         <List>
           {[
               {link:'',text:'Home', icon:<Home />},  
-              {link:'Users',text:'Users', icon:<People />},
-              {link:'Books',text:'Books', icon:<Book />},
-              {link:'Transactions',text:'Transactions', icon:<Receipt />},
+              {link:'Computers',text:'Computers', icon:<People />},
+              {link:'Commands',text:'Commands', icon:<Book />},
+              {link:'Actions',text:'Actions', icon:<Receipt />},
           ].map((item, index) => (
              <Link to={`/${item.link}`} key={item.link} >
             <ListItem button >

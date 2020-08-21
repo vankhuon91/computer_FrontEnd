@@ -1,22 +1,32 @@
 import React, { useState, useEffect } from 'react';
 import MaterialTable from 'material-table';
 import axios from 'axios';
-
-export default function Books() {
+import {serverAPI} from './Const'
+export default function Commands() {
   const [state, setState] = useState({
     columns: [
-      { title: 'Title', field: 'title' },
-      { title: 'Description', field: 'description' },
-      { title: 'CoverUrl', field: 'coverUrl'},
+      { title: 'Name Commands', field: 'nameCommand' },
+      { title: 'Type Commands', field: 'typeCommand' },
+      { title: 'More Infomations', field: 'infoCommand' },
+      
 
     ],
     data: [],
   });
   useEffect(() => {
-    axios.get('https://27--rest-api.glitch.me/api/book/all')
+    axios.get(serverAPI+'/commands')
       .then((res) => {
-        const data = res.data;
+        let data = res.data;
+        
+        data = data.map((item)=>{
+          let newItem={...item};
+          
+          newItem.infoCommand=JSON.stringify(item.infoCommand)
+          return newItem;
+        })
+      //  console.log(data)
         setState((prevState) => { return { ...prevState, data } })
+        
       })
 
   }, [])
@@ -71,7 +81,7 @@ export default function Books() {
   }
   return (
     <MaterialTable
-      title="Books"
+      title="Commands"
       columns={state.columns}
       data={state.data}
       editable={{

@@ -8,9 +8,9 @@ import {
     Link
 } from "react-router-dom";
 
-import Users from '../components/Users'
-import Books from '../components/Books'
-import Transactions from '../components/Transactions'
+import Computers from '../components/Computers'
+import Commands from '../components/Commands'
+import Actions from '../components/Actions'
 
 export default function Home() {
     return (
@@ -21,14 +21,14 @@ export default function Home() {
                     <Route exact path="/">
                         <p>Home</p>
                     </Route>
-                    <Route exact path="/Users">
-                        <Users/>
+                    <Route exact path="/computers">
+                        <Computers/>
                     </Route>
-                    <Route path="/Books">
-                        <Books/>
+                    <Route path="/commands">
+                        <Commands/>
                     </Route>
-                    <Route path="/Transactions">
-                        <Transactions/>
+                    <Route path="/actions">
+                        <Actions/>
                     </Route>
                     
                 </MiniDrawer>

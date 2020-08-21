@@ -1,26 +1,31 @@
 import React, { useState, useEffect } from 'react';
 import MaterialTable from 'material-table';
 import axios from 'axios';
+import {serverAPI} from './Const'
 
-export default function Users() {
+export default function Computers() {
   const [state, setState] = useState({
     columns: [
-      { title: 'Name', field: 'name' },
-      { title: 'Email', field: 'email' },
-      { title: 'Phone Number', field: 'phone', type: 'numeric' },
-
+      { title: 'Computer Name', field: 'ComName' },
+      { title: 'MAC', field: 'Mac' },
+      { title: 'IP', field: 'IP' },
+      { title: 'Serial Disk', field: 'SerialDisk', type: 'string' },
+      { title: 'OS', field: 'OS'},
+      { title: 'Version', field: 'Version'},
+      { title: 'lastSeen', field: 'lastSeen' },
     ],
     data: [],
   });
   useEffect(() => {
-    axios.get('https://27--rest-api.glitch.me/api/user/all')
+   
+    axios.get(serverAPI+'/computers')
       .then((res) => {
         const data = res.data;
         setState((prevState) => { return { ...prevState, data } })
+        console.log(data)
       })
 
   }, [])
-
   let deleteUser = (oldData) => {
     return axios.delete(`https://27--rest-api.glitch.me/api/user/${oldData._id}`)
       .then(res => {
