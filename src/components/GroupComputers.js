@@ -5,25 +5,17 @@ import {serverAPI} from './Const'
 export default function Commands() {
   const [state, setState] = useState({
     columns: [
-      { title: 'Name Commands', field: 'nameCommand' },
-      { title: 'Type Commands', field: 'typeCommand' },
-      { title: 'More Infomations', field: 'infoCommand' },
-      
+      { title: 'Group Name', field: 'groupName' },
+      { title: 'Rule Filter', field: 'filter' },
+      { title: 'Tag', field: 'groupTag'},
 
     ],
     data: [],
   });
   useEffect(() => {
-    axios.get(serverAPI+'/commands')
+    axios.get(serverAPI+'/groupcomputers')
       .then((res) => {
         let data = res.data;
-        
-        data = data.map((item)=>{
-          let newItem={...item};
-          
-          newItem.infoCommand=JSON.stringify(item.infoCommand)
-          return newItem;
-        })
       //  console.log(data)
         setState((prevState) => { return { ...prevState, data } })
         
@@ -31,8 +23,8 @@ export default function Commands() {
 
   }, [])
 
-  let deleteCommand = (oldData) => {
-    return axios.delete(serverAPI+`/commands/${oldData._id}`)
+  let deleteGroup = (oldData) => {
+    return axios.delete(serverAPI+`/groupcomputers/${oldData._id}`)
       .then(res => {
         if (oldData) {
           setState((prevState) => {
@@ -48,10 +40,10 @@ export default function Commands() {
       );
   }
 
-  let updateCommand = (newData, oldData) => {
+  let updateGroup = (newData, oldData) => {
     let sendData={...newData}
-    sendData.infoCommand=JSON.parse(newData.infoCommand);
-    return axios.put(serverAPI+`/commands/${oldData._id}`,sendData)
+   
+    return axios.put(serverAPI+`/groupcomputers/${oldData._id}`,sendData)
       .then(res => {
         if (oldData) {
           setState((prevState) => {
@@ -67,10 +59,10 @@ export default function Commands() {
       );
   }
 
-  let addCommand = (newData) => {
+  let addGroup = (newData) => {
     let sendData={...newData}
-    sendData.infoCommand=JSON.parse(newData.infoCommand);
-    return axios.post(serverAPI+'/commands',sendData)
+   
+    return axios.post(serverAPI+'/groupcomputers',sendData)
       .then(res => {
         setState((prevState) => {
           const data = [...prevState.data];
@@ -85,13 +77,13 @@ export default function Commands() {
   }
   return (
     <MaterialTable
-      title="Commands"
+      title="Group Computers"
       columns={state.columns}
       data={state.data}
       editable={{
-        onRowAdd: addCommand,
-        onRowUpdate: updateCommand,
-        onRowDelete: deleteCommand,
+        onRowAdd: addGroup,
+        onRowUpdate: updateGroup,
+        onRowDelete: deleteGroup,
       }}
     />
   );

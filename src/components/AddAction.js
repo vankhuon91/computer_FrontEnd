@@ -3,12 +3,12 @@ import MaterialTable from 'material-table';
 import axios from 'axios';
 import {serverAPI} from './Const'
 
-export default function Actions() {
+export default function AddActions() {
   const [state, setState] = useState({
     columns: [
-      { title: 'Group Name', field: 'groupName' },
-      { title: 'Rule filter', field: 'filter' },
-      { title: 'Tag', field: 'tag'},
+      { title: 'ComputerName', field: 'ComName' },
+      { title: 'Mac', field: 'Mac' },
+      { title: 'Time Computer', field: 'timeCom' },
       { title: 'Name Command', field: 'nameCommand' },
       { title: 'Time Create', field: 'timeCreate' },
       { title: 'Time Receive', field: 'timeReceive' },
@@ -20,13 +20,13 @@ export default function Actions() {
       .then((res) => {
         let data = res.data;
         data=data.map((item)=>{
-          if (item.idGroup==null) {item.idGroup={}}
+          if (item.idComputer==null) {item.idComputer={}}
           if (item.idCommand==null) {item.idCommand={}}
           let newitem={
               _id:item._id,
-              groupName:item.idGroup.groupName,
-              filter:item.idGroup.filter,
-              tag:item.idGroup.groupTag,
+              Mac:item.idComputer.Mac,
+              ComName:item.idComputer.ComName,
+              timeCom:item.idComputer.lastSeen,
               nameCommand:item.idCommand.nameCommand,
               timeReceive:item.timeReceive ,
               timeCreate:item.timeCreate

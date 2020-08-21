@@ -9,6 +9,7 @@ import {
 } from "react-router-dom";
 
 import Computers from '../components/Computers'
+import GroupComputers from '../components/GroupComputers'
 import Commands from '../components/Commands'
 import Actions from '../components/Actions'
 
@@ -29,6 +30,9 @@ export default function Home() {
                     </Route>
                     <Route path="/actions">
                         <Actions/>
+                    </Route>
+                    <Route path="/groupcomputers">
+                        <GroupComputers/>
                     </Route>
                     
                 </MiniDrawer>

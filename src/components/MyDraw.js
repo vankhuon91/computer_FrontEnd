@@ -152,6 +152,7 @@ export default function MiniDrawer(props) {
           {[
               {link:'',text:'Home', icon:<Home />},  
               {link:'Computers',text:'Computers', icon:<People />},
+              {link:'GroupComputers',text:'Groups', icon:<People />},
               {link:'Commands',text:'Commands', icon:<Book />},
               {link:'Actions',text:'Actions', icon:<Receipt />},
           ].map((item, index) => (

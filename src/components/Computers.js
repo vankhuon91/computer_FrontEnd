@@ -9,6 +9,7 @@ export default function Computers() {
       { title: 'Computer Name', field: 'ComName' },
       { title: 'MAC', field: 'Mac' },
       { title: 'IP', field: 'IP' },
+      { title: 'Public IP', field: 'public_IP' },
       { title: 'Serial Disk', field: 'SerialDisk', type: 'string' },
       { title: 'OS', field: 'OS'},
       { title: 'Version', field: 'Version'},
@@ -26,8 +27,8 @@ export default function Computers() {
       })
 
   }, [])
-  let deleteUser = (oldData) => {
-    return axios.delete(`https://27--rest-api.glitch.me/api/user/${oldData._id}`)
+  let deleteComputer = (oldData) => {
+    return axios.delete(serverAPI+`/computers/${oldData._id}`)
       .then(res => {
         if (oldData) {
           setState((prevState) => {
@@ -43,46 +44,16 @@ export default function Computers() {
       );
   }
 
-  let updateUser = (newData, oldData) => {
-    return axios.put(`https://27--rest-api.glitch.me/api/user/${oldData._id}`,newData)
-      .then(res => {
-        if (oldData) {
-          setState((prevState) => {
-            const data = [...prevState.data];
-            data[data.indexOf(oldData)] = newData;
-            return { ...prevState, data };
-          });
-        }
-      })
-      .catch(error => {
-        console.log(error)
-      }
-      );
-  }
+  
 
-  let addUser = (newData) => {
-    return axios.post(`https://27--rest-api.glitch.me/api/register`,newData)
-      .then(res => {
-        setState((prevState) => {
-          const data = [...prevState.data];
-          data.push(newData);
-          return { ...prevState, data };
-        });
-      })
-      .catch(error => {
-        console.log(error)
-      }
-      );
-  }
+  
   return (
     <MaterialTable
-      title="Users"
+      title="Computers"
       columns={state.columns}
       data={state.data}
       editable={{
-        onRowAdd: addUser,
-        onRowUpdate: updateUser,
-        onRowDelete: deleteUser,
+        onRowDelete: deleteComputer,
       }}
     />
   );
