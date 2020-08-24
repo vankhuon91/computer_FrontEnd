@@ -1,2 +1,2 @@
-const serverAPI='https://172.16.110.23:3000'
+const serverAPI='https://127.0.0.1:3000'
 export {serverAPI}
