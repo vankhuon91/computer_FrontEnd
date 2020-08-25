@@ -10,7 +10,7 @@ export default function Computers() {
       { title: 'MAC', field: 'Mac' },
       { title: 'IP', field: 'IP' },
       { title: 'Public IP', field: 'public_IP' },
-      { title: 'Serial Disk', field: 'SerialDisk', type: 'string' },
+      { title: 'Serial Disk', field: 'serialDisk', type: 'string' },
       { title: 'OS', field: 'OS'},
       { title: 'Version', field: 'Version'},
       { title: 'lastSeen', field: 'lastSeen' },

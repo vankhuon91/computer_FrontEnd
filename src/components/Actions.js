@@ -7,8 +7,6 @@ import { serverAPI } from './Const'
 export default function Actions() {
   const [state, setState] = useState({});
 
-  
-
 let deleteAction = (oldData) => {
   return axios.delete(serverAPI + `/actions/${oldData._id}`)
     .then(res => {
@@ -76,10 +74,11 @@ async function getData() {
       _id: item._id,
       idGroup: item.idGroup._id,
       idCommand: item.idCommand._id,
-     
-      timeReceive: item.timeReceive,
-      timeCreate: item.timeCreate
+      timeCreate:item.timeCreate,
+      countComputers: item.countComputers,
     }
+    console.log(item)
+
     return newitem
   })
 
@@ -90,9 +89,9 @@ async function getData() {
   let newState = {
     columns: [
       { title: 'Group Name', field: 'idGroup', lookup:listIDGroups},
-      { title: 'Name Command', field: 'idCommand',lookup:listIDCommands} ,
+      { title: 'Name Command', field: 'idCommand',lookup:listIDCommands},
       { title: 'Time Create', field: 'timeCreate' },
-      { title: 'Time Receive', field: 'timeReceive' },
+      { title: 'Count Receive', field: 'countComputers'},
     ],
     data: data,
   }

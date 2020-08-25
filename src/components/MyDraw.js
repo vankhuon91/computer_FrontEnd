@@ -15,7 +15,7 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import {ListItem} from '@material-ui/core';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import {People,Book,Receipt,Home,Computer,GroupWork,Code} from '@material-ui/icons';
+import {People,Book,Receipt,Home,Computer,GroupWork,Code,Schedule} from '@material-ui/icons';
 import Button from '@material-ui/core/Button'
 import {
     
@@ -150,9 +150,9 @@ export default function MiniDrawer(props) {
         <Divider />
         <List>
           {[
-              {link:'Actions',text:'Actions', icon:<Home />},
-              {link:'Computers',text:'Computers', icon:<Computer />},
+              {link:'Actions',text:'Actions', icon:<Schedule />},
               {link:'GroupComputers',text:'Groups', icon:<GroupWork />},
+              {link:'Computers',text:'Computers', icon:<Computer />},
               {link:'Commands',text:'Commands', icon:<Code />},
               
           ].map((item, index) => (
