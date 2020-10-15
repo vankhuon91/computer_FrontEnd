@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import MaterialTable from 'material-table';
 import axios from 'axios';
 import {serverAPI} from './Const'
+import {tableIcons} from './tableicon'
 export default function Commands() {
   const [state, setState] = useState({
     columns: [
@@ -80,6 +81,7 @@ export default function Commands() {
       title="Group Computers"
       columns={state.columns}
       data={state.data}
+      icons={tableIcons}
       editable={{
         onRowAdd: addGroup,
         onRowUpdate: updateGroup,

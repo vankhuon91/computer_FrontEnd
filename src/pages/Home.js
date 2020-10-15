@@ -1,11 +1,12 @@
 import React from 'react'
 import MiniDrawer from '../components/MyDraw'
+import './Home.css'
 
 import {
     BrowserRouter as Router,
     Switch,
     Route,
-    Link
+    useRouteMatch
 } from "react-router-dom";
 
 import Computers from '../components/Computers'
@@ -14,30 +15,29 @@ import Commands from '../components/Commands'
 import Actions from '../components/Actions'
 
 export default function Home() {
+    let { path, url } = useRouteMatch();
     return (
-        <div>
-             <Router>
-                <MiniDrawer>
-               
+        <div className='Container'>
+
+            <MiniDrawer >
+                <Switch>
                     <Route exact path="/">
-                        <p>Home</p>
+                        <Actions />
+                    </Route>
+                    <Route exact path="/actions">
+                        <Actions />
                     </Route>
                     <Route exact path="/computers">
-                        <Computers/>
+                        <Computers />
                     </Route>
-                    <Route path="/commands">
-                        <Commands/>
+                    <Route exact path="/commands">
+                        <Commands />
                     </Route>
-                    <Route path="/actions">
-                        <Actions/>
+                    <Route exact path="/groupcomputers">
+                        <GroupComputers />
                     </Route>
-                    <Route path="/groupcomputers">
-                        <GroupComputers/>
-                    </Route>
-                    
-                </MiniDrawer>
-                </Router>
-           
+                </Switch>
+            </MiniDrawer>
         </div>
     )
 }

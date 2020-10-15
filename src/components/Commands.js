@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import MaterialTable from 'material-table';
 import axios from 'axios';
+import {tableIcons} from './tableicon'
 import {serverAPI} from './Const'
 export default function Commands() {
   const [state, setState] = useState({
@@ -88,6 +89,7 @@ export default function Commands() {
       title="Commands"
       columns={state.columns}
       data={state.data}
+      icons={tableIcons}
       editable={{
         onRowAdd: addCommand,
         onRowUpdate: updateCommand,

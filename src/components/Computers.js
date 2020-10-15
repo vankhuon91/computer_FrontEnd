@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import MaterialTable from 'material-table';
 import axios from 'axios';
+import {tableIcons} from './tableicon'
 import {serverAPI} from './Const'
 
 export default function Computers() {
@@ -52,6 +53,7 @@ export default function Computers() {
       title="Computers"
       columns={state.columns}
       data={state.data}
+      icons={tableIcons}
       editable={{
         onRowDelete: deleteComputer,
       }}

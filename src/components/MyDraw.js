@@ -123,10 +123,11 @@ export default function MiniDrawer(props) {
           </IconButton>
 
           <Typography variant="h6" noWrap style={{flex:1}}>
-            Mini variant drawer
+            Server Control
           </Typography>
-
-          <Button color="inherit">Login</Button>
+         
+          <Button color="inherit" >Login</Button>
+         
         </Toolbar>
       </AppBar>
       <Drawer
@@ -150,6 +151,7 @@ export default function MiniDrawer(props) {
         <Divider />
         <List>
           {[
+              // {link:'',text:'Home', icon:<Home />},
               {link:'Actions',text:'Actions', icon:<Schedule />},
               {link:'GroupComputers',text:'Groups', icon:<GroupWork />},
               {link:'Computers',text:'Computers', icon:<Computer />},

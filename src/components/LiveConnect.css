@@ -1,0 +1,10 @@
+.Container {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+   
+
+}
+.Container .textinput {
+    margin-bottom: 15pt;
+}

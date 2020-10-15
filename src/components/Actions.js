@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import MaterialTable from 'material-table';
+import IconButton from '@material-ui/core/IconButton';
 import axios from 'axios';
 import { serverAPI } from './Const'
+import {tableIcons} from './tableicon'
+import {Replay} from '@material-ui/icons';
 
 
 export default function Actions() {
@@ -92,6 +95,14 @@ async function getData() {
       { title: 'Name Command', field: 'idCommand',lookup:listIDCommands},
       { title: 'Time Create', field: 'timeCreate' },
       { title: 'Count Receive', field: 'countComputers'},
+      { title: 'Reset', render:(rowData)=>{
+        return (
+        <IconButton>
+        <Replay onClick={async ()=>{
+          await axios.put(serverAPI + `/actions/${rowData._id}`)
+        }}/>
+        </IconButton>)
+      }}
     ],
     data: data,
   }
@@ -106,9 +117,10 @@ useEffect(() => {
 return (
 
   <MaterialTable
-    title="Actions"
+    title="Task Schedule"
     columns={state.columns}
     data={state.data}
+    icons={tableIcons}
     editable={{
       onRowAdd: addAction,
       onRowDelete: deleteAction,
