@@ -27,10 +27,10 @@ let deleteAction = (oldData) => {
     );
 }
 let addAction = (newData) => {
-  console.log(newData)
+//  console.log(newData)
   return axios.post(serverAPI + '/actions',newData)
     .then(res => {
-      console.log(res.data)
+     // console.log(res.data)
       setState((prevState) => {
         const data = [...prevState.data];
         data.push(res.data);
@@ -65,7 +65,7 @@ async function getData() {
   for (let command of listCommands) {
     listIDCommands[command._id]=command.nameCommand;
   }
-  console.log(listIDCommands)
+ // console.log(listIDCommands)
   //get data
 
   let listActions = await axios.get(serverAPI + '/actions');
@@ -80,13 +80,13 @@ async function getData() {
       timeCreate:item.timeCreate,
       countComputers: item.countComputers,
     }
-    console.log(item)
+   // console.log(item)
 
     return newitem
   })
 
 
-
+  //reset 
   
   //set state
   let newState = {

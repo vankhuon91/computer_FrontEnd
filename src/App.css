@@ -1,6 +1,8 @@
 .App {
   height: 100vh;
- 
+  /*Display:flex;
+   justify-content: center ;
+  align-items: center; */
 }
 
 .App-logo {

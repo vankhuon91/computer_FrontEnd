@@ -8,25 +8,61 @@ import Checkbox from '@material-ui/core/Checkbox';
 //import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 
-import { Link, Redirect } from "react-router-dom";
 
-
+import {
+    Link, Redirect, useHistory,
+    useLocation
+} from "react-router-dom";
+import axios from "axios";
+import fakeAuth from '../components/auth'
 
 export default function SignIn() {
+    const [inputs, setInputs] = useState({
+        username: '',
+        password: ''
+    });
+    const { username, password } = inputs;
 
+    let history = useHistory();
+    let location = useLocation();
+
+    let { from } = location.state || { from: { pathname: "/" } };
+    let login = () => {
+
+        fakeAuth.authenticate(async () => {
+            let data = await axios.post('https://miavm.bqp:443/api/users/login', { user: username, pass: password });
+            data = data.data;
+            // console.log(data)
+            if (data) {
+                history.replace(from)
+            }
+            else {
+                fakeAuth.isAuthenticated = false;
+            }
+        });
+    };
+
+    function handleChange(e) {
+        const { name, value } = e.target;
+        setInputs(inputs => ({ ...inputs, [name]: value }));
+    }
     return (
 
-        <form noValidate >
+        <form noValidate
+            style={{ width: '40%',marginLeft:'30%',marginTop:'5%'}}
+        >
             <TextField
                 variant="outlined"
                 margin="normal"
                 required
                 fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                autoComplete="email"
-               
+                id="username"
+                label="User Name"
+                name="username"
+                autoComplete="username"
+                value={username}
+                onChange={handleChange}
+
                 autoFocus
             />
             <TextField
@@ -38,7 +74,9 @@ export default function SignIn() {
                 label="Password"
                 type="password"
                 id="password"
-               
+                value={password}
+                onChange={handleChange}
+
                 autoComplete="current-password"
             />
             <FormControlLabel
@@ -50,23 +88,11 @@ export default function SignIn() {
                 fullWidth
                 variant="contained"
                 color="primary"
-                
-               
+                onClick={login}
             >
                 Sign In
         </Button>
-            <Grid container>
-                <Grid item xs>
-                    <Link to="#" variant="body2"> 
-                        Forgot password?
-            </Link>
-                </Grid>
-                <Grid item>
-                    <Link to="/signup" variant="body2">
-                        {"Don't have an account? Sign Up"}
-                    </Link>
-                </Grid>
-            </Grid>
+
         </form>
 
     );

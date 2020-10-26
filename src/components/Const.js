@@ -1,2 +1,2 @@
-const serverAPI='https://127.0.0.1:443'
+const serverAPI='https://miavm.bqp:443/api'
 export {serverAPI}

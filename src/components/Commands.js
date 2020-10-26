@@ -18,14 +18,11 @@ export default function Commands() {
     axios.get(serverAPI+'/commands')
       .then((res) => {
         let data = res.data;
-        
         data = data.map((item)=>{
           let newItem={...item};
-          
           newItem.infoCommand=JSON.stringify(item.infoCommand)
           return newItem;
         })
-      //  console.log(data)
         setState((prevState) => { return { ...prevState, data } })
         
       })
