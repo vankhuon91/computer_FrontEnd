@@ -6,6 +6,7 @@ import { tableIcons } from './tableicon'
 import { serverAPI } from './Const'
 import { VisibilityOffOutlined, VisibilityOutlined } from '@material-ui/icons';
 
+
 function StatusRemote(props) {
   if (props.isRemote) {
     return (<VisibilityOutlined />)
@@ -14,8 +15,15 @@ function StatusRemote(props) {
 }
 
 export default function Computers() {
-  function handleStatusRemote(){
-    console.log('change status')
+  async function handleStatusRemote(rowData) {
+    console.log(rowData.tableData.id);
+    let newStatus= !rowData.isRemote;
+    let newData=state.data;
+    console.log(newData);
+    await axios.put(`${serverAPI}/computers`,{_id: rowData._id,
+    "isRemote": newStatus});
+    setState((prevState) => { return { ...prevState}})
+    //window.location.reload(false);
   }
   const [state, setState] = useState({
     columns: [
@@ -32,11 +40,13 @@ export default function Computers() {
         field: 'isRemote',
         type: 'string',
         render: rowdata => {
-          return <StatusRemote
-            onClick={()=>{
-              console.log('click')
-            }}
-            isRemote={rowdata.isRemote} />
+          return (
+            <IconButton
+              onClick={()=>{handleStatusRemote(rowdata)}}
+            >
+              <StatusRemote
+                isRemote={rowdata.isRemote} />
+            </IconButton>)
         }
       },
     ],
